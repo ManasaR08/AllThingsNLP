@@ -3,13 +3,35 @@
     <head>
         <h1>News Summarization</h1>
         <h2>Using BERT</h2>
-        <main>
-            <p>
-                This model generates an Abstractive summary on any given topic. You can upload a file, paste a link, or enter text to generate a summary. The model being used here is BERT. BERT, which stands for Bidirectional Encoder Representations from Transformers, is based on Transformers, a deep learning model in which every output element is connected to every input element, and the weightings between them are dynamically calculated based upon their connection. (In NLP, this process is called attention.)
-            </p>
-        </main>
+        <a href = "https://arxiv.org/abs/1810.04805" target = "_blank">Link to BERT paper</a>
+        <img src = "collection-newspapers.jpg">
+        <p>
+            This model generates an Abstractive summary on any given topic. You can upload a file, paste a link, or enter text to generate a summary. The model being used here is BERT. BERT, which stands for Bidirectional Encoder Representations from Transformers, is based on Transformers, a deep learning model in which every output element is connected to every input element, and the weightings between them are dynamically calculated based upon their connection. (In NLP, this process is called attention.)
+        </p>
     </head>
     <body>
+    <main>
+        
+        <ul>
+            <li><a href = "#file">Upload a file</a></li>
+            <li><a href = "#url">Enter an URL</a></li>
+            <li><a href = "#text">Enter text</a></li>
+        </ul>
+        
+        <file id = "file"><h2>Upload your file in Word/PDF format here</h2></file>
+        <url id = "url"><h2>Paste your weblink here</h2>
+            <form action = "#">
+                <input type = "text" placeholder = "Enter URL" required>
+                <button type = "submit">Submit</button>
+            </form>
 
+        </url>
+        <text id = "text"><h2>Enter your text here</h2>
+            <form action = "#">
+                <input type = "text" placeholder = "Enter text" required>
+                <button tupe = "submit">Submit</button>
+            </form>
+        </text>
+    </main>
     </body>
 </html>
