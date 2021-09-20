@@ -1,30 +1,23 @@
-from django.shortcuts import render, HttpResponse
-from django.http import HttpResponse
-from django.conf import settings
+from django.shortcuts import render
+from django.views.generic import TemplateView
 from django.core.files.storage import FileSystemStorage
-from django.views.decorators.csrf import csrf_exempt
-from .models import FilesUpload
+from summarizer import Summarizer,TransformerSummarizer
+import textract
 
-@csrf_exempt
-def file_upload(request):
-    context = {}
-    request_context = RequestContext(request)
-    if request.method == 'POST' and request.FILES['myFile']:
-        myFile = request.FILES['myFile']
-        document = FilesUpload.objects.creat(file=myFile)
-        document.save()
-        return HttpResponse("File has been uploaded", context, request_context=request_context)
-    return render(request, 'index,html')
 
 def home(request):
+    return render(request, 'index.html')
+
+def upload(request):
+    context = {}
     if request.method == 'POST':
-        clientside_form = FilesUpload(request.POST, request.FILES, instance=request.user)
-        if clientside_form.is_valid():
-            name = clientside_form.myFile['file_name']
-            files = clientside_form.myFile['myFile']
-            FilesUpload(file_name=name, files=files)
-            return HttpResponse("File Uploaded")
-        else:
-            return HttpResponse("Error Uploading")
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        bert_model = Summarizer()
+        raw_text = textract.process("media\\" +  name).decode("utf-8")
+        summary = ''.join(bert_model(raw_text, min_length = 60))
+        return render(request, "upload.html", {"something": True, "summary": summary})
+        context['url'] = fs.url(name)
     else:
-        return render(request, 'index.html')
+        return render(request, 'upload.html', context)

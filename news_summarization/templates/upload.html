@@ -1,0 +1,19 @@
+{% block content %}
+
+<h2>File Upload</h2>
+<h3>Upload your file in Word/PDF format here</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" class="form-control-file" id="myFile" name="document" required>
+        <button type = "submit" class="btn btn-primary btn-sm button">Upload File</button>
+    </form>
+    {% if url %}
+        <p>Uploaded File: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
+
+{% if something %}
+    <h3>Summary</h3>
+    <p>{{ summary }}</p>
+{% endif %}
+
+{% endblock %}
